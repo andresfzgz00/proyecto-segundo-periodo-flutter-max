@@ -21,7 +21,6 @@ class _PhotoListScreenState extends State<PhotoListScreen> {
 
   @override
   void didChangeDependencies() {
-    print("hola");
     // TODO: implement didChangeDependencies
     if (_isInit) {
       setState(() {
@@ -29,11 +28,10 @@ class _PhotoListScreenState extends State<PhotoListScreen> {
       });
     }
     try {
-      var url = Uri.parse('https://jsonplaceholder.typicode.com/photos');
+      final url = Uri.parse('https://jsonplaceholder.typicode.com/photos');
       http.get(url).then((response) {
-        final decodedResponse = jsonDecode(response.body) as List<dynamic>;
-        _photos = decodedResponse.map((e) => Photo(id: e.id, title: e.title, picture: e.picture)).toList();
-        print(_photos);
+        final decodedResponse = jsonDecode(response.body) as List<Map<String, dynamic>>;
+        _photos = decodedResponse.sublist(0, 5).map((e) => Photo(id: e["id"], title: e["title"], picture: e["picture"])).toList();
       });
     } catch (error) {
     }
@@ -50,7 +48,7 @@ class _PhotoListScreenState extends State<PhotoListScreen> {
       appBar: AppBar(
         title: const Text("Products"),
       ),
-      body: GridView.builder(
+      body: _isLoading ? const Center(child: CircularProgressIndicator(),) : GridView.builder(
         
         padding: const EdgeInsets.all(10),
         itemCount: _photos.length,
