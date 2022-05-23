@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../models/photo.dart';
 import '../screens/photo_detail_screen.dart';
 
 class PhotoItem extends StatelessWidget {
@@ -23,7 +24,7 @@ class PhotoItem extends StatelessWidget {
         child: GridTile(
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamed(PhotoDetailScreen.routeName, arguments: id);
+              Navigator.of(context).pushNamed(PhotoDetailScreen.routeName, arguments: Photo(id: id, picture: picture, title: title));
             },
             child: Hero(
               tag: id,
