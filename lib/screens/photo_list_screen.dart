@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/photo.dart';
@@ -60,10 +61,10 @@ class _PhotoListScreenState extends State<PhotoListScreen> {
           : GridView.builder(
               padding: const EdgeInsets.all(10),
               itemCount: _photos.length,
-              itemBuilder: (ctx, i) => PhotoItem(
+              itemBuilder: (ctx, i) => FadeInRight(child: PhotoItem(
                   id: _photos[i].id,
                   title: _photos[i].title,
-                  picture: _photos[i].picture),
+                  picture: _photos[i].picture)),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 3 / 2,
